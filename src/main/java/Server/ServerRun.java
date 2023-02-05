@@ -20,8 +20,16 @@ public class ServerRun {
             clientHandler2.setClientHandlers(clientHandler1);
             clientHandler1.setClientHandlers(clientHandler2);
             Thread thread2 = new Thread(clientHandler2);
-            clientHandler2.startGame();
-            clientHandler1.startGame();
+            try{
+                clientHandler2.startGame();
+            }catch (Exception ignored){
+                player2.close();
+            }
+            try{
+                clientHandler1.startGame();
+            }catch (Exception ignored){
+                player1.close();
+            }
             thread2.start();
         }
     }
